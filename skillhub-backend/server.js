@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const orderRoutes = require ('./routes/orderRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use('/api', authRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', reviewRoutes);
+app.use('/api', dashboardRoutes);
 
 sequelize.sync().then(()=> {
     app.listen(process.env.PORT, () =>{
