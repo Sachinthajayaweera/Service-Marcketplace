@@ -7,6 +7,7 @@ const {
     getAllOders,
     getMyOrders
 } = require ('../controllers/orderController');
+const {updateOrderStatus} = require('../controllers/orderController');
 
 // POST /api/orders
 router.post('/orders', auth, createOrder);
@@ -16,5 +17,8 @@ router.get('/orders', auth, getMyOrders);
 
 // GET /api/admin/orders
 router.get('/admin/orders', auth, getAllOders);
+
+// PUT /api/orders/:id/status
+router.put('/orders/:id/status', auth, updateOrderStatus);
 
 module.exports = router;
