@@ -14,10 +14,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', authRoutes);
-app.use('/api', serviceRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', reviewRoutes);
 app.use('/api', dashboardRoutes);
+app.use('/api/services', require('./routes/serviceRoutes'));
 
 sequelize.sync().then(()=> {
     app.listen(process.env.PORT, () =>{

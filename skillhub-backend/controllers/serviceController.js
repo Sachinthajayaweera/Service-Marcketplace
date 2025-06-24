@@ -61,8 +61,11 @@ exports.updateService = async (req, res)=>{
 
 //DELETE service
 exports.deleteService = async (req, res)=>{
+    const serviceId = req.params.id;
+
+
     try{
-        const service = await Service.findByPk(req.params.id);
+        const service = await Service.findByPk(serviceId);
         
         if(!service) return res.status(404).json({message:"Service not found"});
         if(!service.userId !== req.user.id){
@@ -75,3 +78,36 @@ exports.deleteService = async (req, res)=>{
         res.status(500).json({error:err.message});
        }
 };
+
+//View My Services
+
+exports.getMyServices = async(req, res) =>{
+    try{
+        const userId = req.user.id;
+        const services = await Service.findAll({where:{userId: req.user.id}});
+        res.status(200).json(services);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({error: 'Server error'});
+    }
+};
+
+//view Services for ID
+
+exports.getServiceById = async (req, res) => {
+  try {
+    const service = await Service.findByPk(req.params.id);
+    if (!service) return res.status(404).json({ message: 'Not found' });
+
+    // Optional: ensure user owns the service
+    if (service.userId !== req.user.id) {
+      return res.status(403).json({ message: 'Unauthorized' });
+    }
+
+    res.json(service);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
