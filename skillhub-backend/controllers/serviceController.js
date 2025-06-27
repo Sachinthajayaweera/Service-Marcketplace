@@ -26,18 +26,36 @@ exports.createService = async (req, res)=>{
 
 
 //VIEW service
-exports.getAllServices = async (req, res)=>{
-    try{
-        const services = await Service.findAll({
-            include:{
-                model: User,
-                attributes: ['id', 'name']
-            }
-        });
-        res.json(services);
-    }catch (error){
-        res.status(500).json({error:error.message});
+exports.getAllServices = async (req, res) => {
+  const { search, category } = req.query;
+  const { Op } = require('sequelize');
+
+  try {
+    const where = {};
+
+    if (search) {
+      where[Op.or] = [
+        { title: { [Op.like]: `%${search}%` } },
+        { description: { [Op.like]: `%${search}%` } }
+      ];
     }
+
+    if (category) {
+      where.category = category;
+    }
+
+    const services = await Service.findAll({
+      where,
+      include: {
+        model: User,
+        attributes: ['id', 'name']
+      }
+    });
+
+    res.json(services);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 //UPDATE service
