@@ -7,6 +7,7 @@ import AddService from './pages/AddService';
 import MyServices from './pages/MyServices';
 import EditService from './pages/EditService';
 import AllServices from './pages/AllServices';
+import ServiceDetail from './pages/ServiceDetail';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
         <Route path="my-services" element={<ProtectedRoute><MyServices/></ProtectedRoute>}/>
         <Route path="edit-service/:id" element={<ProtectedRoute><EditService/></ProtectedRoute>}/>
         <Route path="/marketplace" element={<AllServices/>}/>
+        <Route path="/services/:id" element={<ServiceDetail/>}/>
+         <Route path="/dashboard/services" element={<MyServices />} />
         {/* Add Register, Dashboard, etc. */}
       </Routes>
     </Router>

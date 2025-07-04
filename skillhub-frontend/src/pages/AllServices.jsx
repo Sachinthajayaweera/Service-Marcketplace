@@ -54,6 +54,10 @@ function AllServices() {
               <p><strong>Price:</strong> LKR {service.price}</p>
               <p>{service.description}</p>
               <p><strong>Seller:</strong> {service.User?.name || 'Unknown'}</p>
+
+              {/* <Link to={`/services/${service.id}`} style={{ color: 'blue', textDecoration: 'underline' }}>
+                View More
+              </Link> */}
             </li>
           ))}
         </ul>
